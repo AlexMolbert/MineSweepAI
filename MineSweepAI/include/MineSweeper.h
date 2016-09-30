@@ -15,12 +15,14 @@ class MineSweeper
     public:
         MineSweeper();
         void print();
-
-    protected:
+        void generateGame();
+        bool uncoverSpace();
+        bool flagSpace();
 
     private:
         vector<vector<int> > gameBoard; // Underlying game board
         vector<vector<int> > userBoard; // The board that the user interacts with
+        int size;
 };
 
 #endif // MINESWEEPER_H
