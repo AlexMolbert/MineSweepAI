@@ -8,7 +8,7 @@ MineSweeper::MineSweeper()
 void MineSweeper::print()
 {
 
-
+    return;
 }
 
 void generateGame()
