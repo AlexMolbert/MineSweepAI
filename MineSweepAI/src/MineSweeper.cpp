@@ -13,7 +13,7 @@ void MineSweeper::print()
 
 void generateGame()
 {
-
+    return;
 }
 
 bool uncoverSpace()
