@@ -10,3 +10,23 @@ void MineSweeper::print()
 
 
 }
+
+void generateGame()
+{
+
+}
+
+bool uncoverSpace()
+{
+
+}
+
+bool flagSpace()
+{
+
+}
+
+void recursiveUncover()
+{
+
+}
