@@ -98,7 +98,7 @@ void MineSweeper::generateGame(int x, int y)
     int highx = min(size - 1, x + 2);
     int highy = min(size - 1, y + 2);
 
-    for (ui i = 0; i < 40; i++)
+    for (ui i = 0; i < mine; i++)
     {
         bool validGen = false;
         while(!validGen)
@@ -217,8 +217,11 @@ void MineSweeper::flagSpace(int x, int y)
     else
         userBoard[y][x] = COVERED_SPACE;
 }
+
+
 void MineSweeper::gameLoop(){
     int x, y;
+    getDifficulty();
     cout << "Make your first move: ";
     cin >> x >> y;
     x--;
@@ -239,6 +242,29 @@ void MineSweeper::gameLoop(){
         cout << "All out. ";
 
 }
+
+void MineSweeper::getDifficulty() {
+    string difficulty;
+    cout << "Enter your difficulty level - \n (Easy - 8x8 and 10 mines, Medium - 16x16 and 40 mines, Expert - 24x24 and 99 miness): ";
+    cin >> difficulty;
+
+    if(difficulty == "easy" || difficulty == "Easy" || difficulty == "8x8"){
+        changeSize(8);
+        mine = 10;
+    }
+
+    if(difficulty == "medium" || difficulty == "Medium" || difficulty == "16x16"){
+        changeSize(16);
+        mine = 40;
+    }
+
+    if(difficulty == "expert" || difficulty == "Expert" || difficulty == "24x24"){
+        changeSize(24);
+        mine = 99;
+    }
+
+}
+
 void MineSweeper::recursiveUncover(int x, int y)
 {
     if (x < 0 || x >= size)
