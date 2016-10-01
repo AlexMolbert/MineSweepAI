@@ -48,7 +48,13 @@ void MineSweeper::print()
                     cout << " *   ";
                 }
                 else
-                    cout << " " << gameBoard[i][j] << "   ";
+                {
+                    if(gameBoard[i][j] == -1){
+                        cout << " B   ";
+                    }
+                    else
+                        cout << " " << gameBoard[i][j] << "   ";
+                }
             }
         }
         cout << " |" << "\n";
@@ -149,6 +155,8 @@ void MineSweeper::generateGame(int x, int y)
 
 void MineSweeper::makeMove()
 {
+    print();
+    cout << "Make your next move: ";
     char choice;
     int x, y;
 
@@ -201,15 +209,13 @@ void MineSweeper::gameLoop(){
     generateGame(x, y);
 
     recursiveUncover(x, y);
-    print();
 
     while(state == ONGOING){
-        cout << "Make your next move: ";
         makeMove();
-        print();
         checkClear();
     }
 
+    print();
     if(state == FAILURE)
         cout << "You hit a bomb dummy";
     if(state == SUCCESS)
@@ -262,6 +268,7 @@ void MineSweeper::uncover(int x, int y)
     if (gameBoard[y][x] == -1)
     {
         state = FAILURE;
+        userBoard[y][x] = UNCOVERED_SPACE;
     }
 
     else
