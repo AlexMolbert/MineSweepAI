@@ -61,6 +61,7 @@ void MineSweeper::print()
 
 void MineSweeper::generateGame(ui x, ui y)
 {
+    state = ONGOING;
     gameBoard.resize(size);
     userBoard.resize(size);
 
@@ -212,4 +213,30 @@ void MineSweeper::recursiveUncover(int x, int y)
     recursiveUncover(x - 1, y + 1);
     recursiveUncover(x, y + 1);
     recursiveUncover(x + 1, y + 1);
+}
+
+void MineSweeper::checkClear()
+{
+    for (unsigned int i = 0; i < userBoard.size(); i++)
+    {
+        for (unsigned int j = 0; i < userBoard.size(); j++)
+        {
+            if (userBoard[i][j] == UNCOVERED_SPACE)
+            {
+                if (gameBoard[i][j] == -1)
+                {
+                    state = FAILURE;
+                    return;
+                }
+            }
+
+            else
+            {
+                if (gameBoard[i][j] != -1)
+                    return;
+            }
+        }
+    }
+
+    state = SUCCESS;
 }

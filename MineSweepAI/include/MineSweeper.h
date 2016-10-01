@@ -7,6 +7,10 @@
 #define UNCOVERED_SPACE 1
 #define FLAGGED_SPACE 2
 
+#define ONGOING 0
+#define FAILURE 1
+#define SUCCESS 2
+
 #include <vector>
 
 typedef unsigned int ui;
@@ -27,7 +31,9 @@ class MineSweeper
         vector<vector<int> > gameBoard; // Underlying game board
         vector<vector<int> > userBoard; // The board that the user interacts with
         ui size;
+        int state;
 
+        void checkClear();
         void flagSpace(int x, int y);
         void recursiveUncover(int x, int y);
 };
