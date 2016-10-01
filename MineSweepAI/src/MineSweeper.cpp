@@ -281,22 +281,22 @@ void MineSweeper::recursiveUncover(int x, int y)
     if (y < 0 || y  >= size)
         return;
 
-    if (userBoard[y][x] == UNCOVERED_SPACE || userBoard[y][x] == FLAGGED_SPACE)
-        return;
+    if (userBoard[y][x] == COVERED_SPACE)
+    {
+        userBoard[y][x] = UNCOVERED_SPACE;
 
-    userBoard[y][x] = UNCOVERED_SPACE;
+        if (gameBoard[y][x] != 0)
+            return;
 
-    if (gameBoard[y][x] != 0)
-        return;
-
-    recursiveUncover(x - 1, y - 1);
-    recursiveUncover(x, y - 1);
-    recursiveUncover(x + 1, y - 1);
-    recursiveUncover(x - 1, y);
-    recursiveUncover(x + 1, y);
-    recursiveUncover(x - 1, y + 1);
-    recursiveUncover(x, y + 1);
-    recursiveUncover(x + 1, y + 1);
+        recursiveUncover(x - 1, y - 1);
+        recursiveUncover(x, y - 1);
+        recursiveUncover(x + 1, y - 1);
+        recursiveUncover(x - 1, y);
+        recursiveUncover(x + 1, y);
+        recursiveUncover(x - 1, y + 1);
+        recursiveUncover(x, y + 1);
+        recursiveUncover(x + 1, y + 1);
+    }
 }
 
 void MineSweeper::checkNeighborFlags(int j, int i)
@@ -331,14 +331,14 @@ void MineSweeper::checkNeighborFlags(int j, int i)
 
     if (gameBoard[i][j] == count)
     {
-        recursiveUncover(i - 1, j - 1);
-        recursiveUncover(i - 1, j);
-        recursiveUncover(i - 1, j + 1);
-        recursiveUncover(i, j - 1);
-        recursiveUncover(i, j + 1);
-        recursiveUncover(i + 1, j - 1);
-        recursiveUncover(i + 1, j);
-        recursiveUncover(i + 1, j + 1);
+        recursiveUncover(j - 1, i - 1);
+        recursiveUncover(j, i - 1);
+        recursiveUncover(j + 1, i - 1);
+        recursiveUncover(j - 1, i);
+        recursiveUncover(j + 1, i);
+        recursiveUncover(j - 1, i + 1);
+        recursiveUncover(j, i + 1);
+        recursiveUncover(j + 1, i + 1);
     }
 
 
@@ -351,26 +351,26 @@ void MineSweeper::checkAllFlag(int j, int i){
     int count = 0;
     if (i - 1 >= 0)
     {
-        if ((j - 1) >= 0 && (userBoard[i - 1][j - 1] == FLAGGED_SPACE || userBoard[i - 1][j - 1] == COVERED_SPACE))
+        if ((j - 1) >= 0 && (userBoard[i - 1][j - 1] != UNCOVERED_SPACE))
             count++;
-        if (userBoard[i - 1][j] == FLAGGED_SPACE || userBoard[i - 1][j] == COVERED_SPACE)
+        if (userBoard[i - 1][j] != UNCOVERED_SPACE)
             count++;
-        if (j + 1 < size && (userBoard[i - 1][j + 1] == FLAGGED_SPACE || userBoard[i - 1][j + 1] == COVERED_SPACE))
+        if (j + 1 < size && (userBoard[i - 1][j + 1] != UNCOVERED_SPACE))
             count++;
     }
 
-    if (j - 1 >= 0 && (userBoard[i][j - 1] == FLAGGED_SPACE || userBoard[i][j - 1] == COVERED_SPACE))
+    if (j - 1 >= 0 && (userBoard[i][j - 1] != UNCOVERED_SPACE))
             count++;
-    if (j + 1 < size && (userBoard[i][j + 1] == FLAGGED_SPACE || userBoard[i][j + 1] == COVERED_SPACE))
+    if (j + 1 < size && (userBoard[i][j + 1] != UNCOVERED_SPACE))
             count++;
 
     if (i + 1 < size)
     {
-        if (j - 1 >= 0 && (userBoard[i + 1][j - 1] == FLAGGED_SPACE || userBoard[i + 1][j - 1] == COVERED_SPACE))
+        if (j - 1 >= 0 && (userBoard[i + 1][j - 1] != UNCOVERED_SPACE))
             count++;
-        if (userBoard[i + 1][j] == FLAGGED_SPACE || userBoard[i + 1][j] == COVERED_SPACE)
+        if (userBoard[i + 1][j] != UNCOVERED_SPACE)
             count++;
-        if (j + 1 < size && (userBoard[i + 1][j + 1] == FLAGGED_SPACE || userBoard[i + 1][j + 1] == COVERED_SPACE))
+        if (j + 1 < size && (userBoard[i + 1][j + 1] != UNCOVERED_SPACE))
             count++;
     }
 
@@ -379,26 +379,26 @@ void MineSweeper::checkAllFlag(int j, int i){
         if (i - 1 >= 0)
         {
             if ((j - 1) >= 0 && userBoard[i - 1][j - 1] == COVERED_SPACE)
-                flagSpace(i - 1, j - 1);
+                flagSpace(j - 1, i - 1);
             if (userBoard[i - 1][j] == COVERED_SPACE)
-                flagSpace(i - 1, j);
+                flagSpace(j, i - 1);
             if (j + 1 < size && userBoard[i - 1][j + 1] == COVERED_SPACE)
-                flagSpace(i - 1, j + 1);
+                flagSpace(j + 1, i - 1);
         }
 
         if (j - 1 >= 0 && userBoard[i][j - 1] == COVERED_SPACE)
-            flagSpace(i, j - 1);
+            flagSpace(j - 1, i);
         if (j + 1 < size && userBoard[i][j + 1] == COVERED_SPACE)
-            flagSpace(i, j + 1);
+            flagSpace(j + 1, i);
 
         if (i + 1 < size)
         {
             if (j - 1 >= 0 && userBoard[i + 1][j - 1] == COVERED_SPACE)
-                flagSpace(i + 1, j - 1);
+                flagSpace(j - 1, i + 1);
             if (userBoard[i + 1][j] == COVERED_SPACE)
-                flagSpace(i + 1, j);
+                flagSpace(j, i  +1);
             if (j + 1 < size && userBoard[i + 1][j + 1] == COVERED_SPACE)
-                flagSpace(i + 1, j + 1);
+                flagSpace(j + 1, i + 1);
         }
     }
 }
@@ -464,12 +464,17 @@ void sleeep(){
 void MineSweeper::aiLoop(){
     generateGame(1, 1);
     uncover(1, 1);
-    for(int i = 0; i < userBoard.size(); i++){
-        for(int j = 0; j < userBoard.size(); j++){
-            //checkNeighborFlags(i, j);
-            checkAllFlag(i, j);
-            print();
-            sleeep();
+    bool c = true;
+    while (true)
+    {
+        for(int i = 0; i < userBoard.size(); i++){
+            for(int j = 0; j < userBoard.size(); j++){
+                checkAllFlag(i, j);
+                checkNeighborFlags(i, j);
+                print();
+                //sleeep();
+                cin.get();
+            }
         }
     }
 }
