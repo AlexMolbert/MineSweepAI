@@ -16,6 +16,7 @@ using namespace std;
 class MineSweeper
 {
     public:
+        void gameLoop();
         MineSweeper();
         void changeSize(ui newSize);
         void print();
@@ -27,6 +28,7 @@ class MineSweeper
         vector<vector<int> > gameBoard; // Underlying game board
         vector<vector<int> > userBoard; // The board that the user interacts with
         ui size;
+        bool rMoves;
 
         void flagSpace(int x, int y);
         void recursiveUncover(int x, int y);

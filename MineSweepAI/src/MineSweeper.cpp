@@ -16,7 +16,7 @@ void MineSweeper::changeSize(ui newSize)
 
 void MineSweeper::print()
 {
-    cout << "    | ";
+    cout << "      ";
     for(int i = 1; i <= size; i++){
         cout << setw(2);
         cout << i << " | ";
@@ -56,6 +56,7 @@ void MineSweeper::print()
     for(int i = 0; i <= size * 5; i++){
         cout << "-";
     }
+    cout << "\n\n";
     return;
 }
 
@@ -188,7 +189,27 @@ void MineSweeper::flagSpace(int x, int y)
 {
     userBoard[y][x] = FLAGGED_SPACE;
 }
+void MineSweeper::gameLoop(){
+    int x, y;
+    print();
+    cout << "Make your first move: ";
+    cin >> x >> y;
+    generateGame(x, y);
+    print();
 
+    while(state == ONGOING){
+        cout << "Make your next move: ";
+        makeMove();
+        print();
+        checkClear();
+    }
+
+    if(state = FAILURE)
+        cout << "You hit a bomb dummy";
+    if(state = SUCCESS)
+        cout << "All out. ";
+
+}
 void MineSweeper::recursiveUncover(int x, int y)
 {
     if (x < 0 || x >= size)
