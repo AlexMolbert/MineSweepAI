@@ -9,22 +9,27 @@
 
 #include <vector>
 
+typedef unsigned int ui;
+
 using namespace std;
 
 class MineSweeper
 {
     public:
         MineSweeper();
+        void changeSize(ui newSize);
         void print();
-        void generateGame();
         bool uncoverSpace();
         bool flagSpace();
+        void generateGame(ui x, ui y);
 
     private:
         vector<vector<int> > gameBoard; // Underlying game board
         vector<vector<int> > userBoard; // The board that the user interacts with
-        int size;
+        ui size;
         void recursiveUncover();
+
+
 };
 
 #endif // MINESWEEPER_H
