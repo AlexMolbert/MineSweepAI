@@ -40,6 +40,10 @@ class MineSweeper
         void flagSpace(int x, int y);
         void recursiveUncover(int x, int y);
         void checkNeighborFlags(int j, int i);
+
+
+        bool checkAI();
+        void aiLoop();
 };
 
 #endif // MINESWEEPER_H

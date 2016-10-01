@@ -222,6 +222,10 @@ void MineSweeper::flagSpace(int x, int y)
 void MineSweeper::gameLoop(){
     int x, y;
     getDifficulty();
+    if(!aiLoop()){
+        return;
+    }
+
     cout << "Make your first move: ";
     cin >> x >> y;
     x--;
@@ -253,15 +257,21 @@ void MineSweeper::getDifficulty() {
         mine = 10;
     }
 
-    if(difficulty == "medium" || difficulty == "Medium" || difficulty == "16x16"){
+    else if(difficulty == "medium" || difficulty == "Medium" || difficulty == "16x16"){
         changeSize(16);
         mine = 40;
     }
 
-    if(difficulty == "expert" || difficulty == "Expert" || difficulty == "24x24"){
+    else if(difficulty == "expert" || difficulty == "Expert" || difficulty == "24x24"){
         changeSize(24);
         mine = 99;
     }
+    else {
+        cout << "Bad Input. \n";
+        getDifficulty();
+        return;
+    }
+
 
 }
 
@@ -334,8 +344,6 @@ void MineSweeper::checkNeighborFlags(int j, int i)
 
 void MineSweeper::checkClear()
 {
-    if (state != ONGOING)
-        return;
     for (unsigned int i = 0; i < userBoard.size(); i++)
     {
         for (unsigned int j = 0; j < userBoard.size(); j++)
@@ -368,4 +376,22 @@ void MineSweeper::uncover(int x, int y)
     {
         recursiveUncover(x, y);
     }
+}
+
+bool MineSweeper::aiLoop(){
+    string choice;
+    cout << "Do you need help stupid human? (Get the help of a bot) Yes/No? ";
+    cin >> choice;
+
+    while(choice != "Yes" && choice != "yes" && choice != "No" && choice != "no" ){
+        if(choice == "Yes" || choice == "yes")
+            return true;
+        else if(choice == "No" || choice == "no")
+            return false;
+        else {
+            cout << "Bad input. Yes or No? ";
+            cin >> choice;
+        }
+    }
+
 }
