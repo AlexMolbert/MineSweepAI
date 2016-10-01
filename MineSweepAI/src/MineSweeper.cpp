@@ -222,8 +222,7 @@ void MineSweeper::flagSpace(int x, int y)
 void MineSweeper::gameLoop(){
     int x, y;
     getDifficulty();
-    if(!checkAI()){
-        aiLoop();
+    if(!aiLoop()){
         return;
     }
 
@@ -337,7 +336,7 @@ void MineSweeper::uncover(int x, int y)
     }
 }
 
-bool MineSweeper::checkAI(){
+bool MineSweeper::aiLoop(){
     string choice;
     cout << "Do you need help stupid human? (Get the help of a bot) Yes/No? ";
     cin >> choice;
@@ -352,9 +351,5 @@ bool MineSweeper::checkAI(){
             cin >> choice;
         }
     }
-
-}
-
-void MineSweeper::aiLoop(){
 
 }
