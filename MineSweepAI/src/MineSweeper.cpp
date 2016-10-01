@@ -470,12 +470,12 @@ void MineSweeper::aiLoop(){
             for(int j = 0; j < userBoard.size(); j++){
                 checkAllFlag(i, j);
                 checkNeighborFlags(i, j);
-                print();
-                checkClear();
                 //sleeep();
                 //cin.get();
             }
         }
+        checkClear();
+        print();
     }
 
     cout << "You think your board can trouble my C O M P L E X A L G O R I T H M S ?" << endl;
