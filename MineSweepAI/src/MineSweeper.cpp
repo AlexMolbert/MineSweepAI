@@ -1,13 +1,9 @@
 #include "../include/MineSweeper.h"
 #include <iostream>
-<<<<<<< HEAD
-#include <iomanip>
-=======
 #include <cmath>
 #include <random>
 #include <iomanip>
 
->>>>>>> origin/master
 MineSweeper::MineSweeper()
 {
     size = 16;
@@ -144,15 +140,6 @@ void MineSweeper::generateGame(ui x, ui y)
                 gameBoard[i][j] = count;
             }
         }
-    }
-
-    for (auto i : gameBoard)
-    {
-        for (auto j : i)
-        {
-            cout << setw(3) << j;
-        }
-        cout << endl;
     }
 }
 
