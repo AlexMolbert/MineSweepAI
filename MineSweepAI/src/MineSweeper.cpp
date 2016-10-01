@@ -185,9 +185,16 @@ void MineSweeper::makeMove()
         return;
     }
 
-    if (userBoard[y][x] == UNCOVERED_SPACE || userBoard[y][x] == FLAGGED_SPACE)
+    if (userBoard[y][x] == UNCOVERED_SPACE)
     {
         cout << "Invalid Space!" << endl;
+        makeMove();
+        return;
+    }
+
+    if (userBoard[y][x] == FLAGGED_SPACE && (choice == 'U' || choice == 'u'))
+    {
+        cout << "Don't wanna do that kiddo." << endl;
         makeMove();
         return;
     }
@@ -205,7 +212,10 @@ void MineSweeper::makeMove()
 
 void MineSweeper::flagSpace(int x, int y)
 {
-    userBoard[y][x] = FLAGGED_SPACE;
+    if (userBoard[y][x] == COVERED_SPACE)
+        userBoard[y][x] = FLAGGED_SPACE;
+    else
+        userBoard[y][x] = COVERED_SPACE;
 }
 void MineSweeper::gameLoop(){
     int x, y;
