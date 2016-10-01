@@ -1,5 +1,6 @@
 #include <iostream>
 #include "MineSweeper.h"
+
 using namespace std;
 
 int main()
