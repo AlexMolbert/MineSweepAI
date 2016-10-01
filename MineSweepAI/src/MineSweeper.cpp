@@ -114,9 +114,9 @@ void MineSweeper::generateGame(int x, int y)
 
                 int count = 0;
 
-                if (i - 1 > 0)
+                if (i - 1 >= 0)
                 {
-                    if ((j - 1) > 0 && gameBoard[i - 1][j - 1] == -1)
+                    if ((j - 1) >= 0 && gameBoard[i - 1][j - 1] == -1)
                         count++;
                     if (gameBoard[i - 1][j] == -1)
                         count++;
@@ -124,14 +124,14 @@ void MineSweeper::generateGame(int x, int y)
                         count++;
                 }
 
-                if (j - 1 > 0 && gameBoard[i][j - 1] == -1)
+                if (j - 1 >= 0 && gameBoard[i][j - 1] == -1)
                     count++;
                 if (j + 1 < size && gameBoard[i][j + 1] == -1)
                     count++;
 
                 if (i + 1 < size)
                 {
-                    if (j - 1 > 0 && gameBoard[i + 1][j - 1] == -1)
+                    if (j - 1 >= 0 && gameBoard[i + 1][j - 1] == -1)
                         count++;
                     if (gameBoard[i + 1][j] == -1)
                         count++;
@@ -177,7 +177,7 @@ void MineSweeper::makeMove()
 
     if (choice == 'U' || choice == 'u')
     {
-        recursiveUncover(x, y);
+        uncover(x, y);
     }
 
     else
@@ -263,4 +263,17 @@ void MineSweeper::checkClear()
     }
 
     state = SUCCESS;
+}
+
+void MineSweeper::uncover(int x, int y)
+{
+    if (gameBoard[y][x] == -1)
+    {
+        state = FAILURE;
+    }
+
+    else
+    {
+        recursiveUncover(x, y);
+    }
 }

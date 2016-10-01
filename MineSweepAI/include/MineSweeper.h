@@ -33,7 +33,7 @@ class MineSweeper
         void changeSize(ui newSize);
         void print();
         void generateGame(int x, int y);
-
+        void uncover(int x, int y);
         void makeMove();
         void checkClear();
         void flagSpace(int x, int y);
