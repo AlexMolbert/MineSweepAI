@@ -27,10 +27,10 @@ class MineSweeper
     private:
         vector<vector<int> > gameBoard; // Underlying game board
         vector<vector<int> > userBoard; // The board that the user interacts with
-        ui size;
+        int size;
         int state;
 
-        void changeSize(ui newSize);
+        void changeSize(int newSize);
         void print();
         void generateGame(int x, int y);
         void uncover(int x, int y);

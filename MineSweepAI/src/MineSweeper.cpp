@@ -3,13 +3,14 @@
 #include <cmath>
 #include <random>
 #include <iomanip>
+#include <chrono>
 
 MineSweeper::MineSweeper()
 {
     size = 16;
 }
 
-void MineSweeper::changeSize(ui newSize)
+void MineSweeper::changeSize(int newSize)
 {
     size = newSize;
 }
@@ -83,16 +84,17 @@ void MineSweeper::generateGame(int x, int y)
             userBoard[i][j] = COVERED_SPACE;
         }
     }
-    random_device rd;
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    mt19937 generator (seed);
 
     for (ui i = 0; i < 40; i++)
     {
         bool validGen = false;
         while(!validGen)
         {
-            ui gx, gy;
-            gx = rd() % size;
-            gy = rd() % size;
+            int gx, gy;
+            gx = generator() % size;
+            gy = generator() % size;
 
             if (x != gx && y != gy)
             {
@@ -208,9 +210,9 @@ void MineSweeper::gameLoop(){
         checkClear();
     }
 
-    if(state = FAILURE)
+    if(state == FAILURE)
         cout << "You hit a bomb dummy";
-    if(state = SUCCESS)
+    if(state == SUCCESS)
         cout << "All out. ";
 
 }
@@ -243,21 +245,11 @@ void MineSweeper::checkClear()
 {
     for (unsigned int i = 0; i < userBoard.size(); i++)
     {
-        for (unsigned int j = 0; i < userBoard.size(); j++)
+        for (unsigned int j = 0; j < userBoard.size(); j++)
         {
-            if (userBoard[i][j] == UNCOVERED_SPACE)
+            if (userBoard[i][j] == COVERED_SPACE && gameBoard[i][j] != -1)
             {
-                if (gameBoard[i][j] == -1)
-                {
-                    state = FAILURE;
-                    return;
-                }
-            }
-
-            else
-            {
-                if (gameBoard[i][j] != -1)
-                    return;
+                return;
             }
         }
     }
