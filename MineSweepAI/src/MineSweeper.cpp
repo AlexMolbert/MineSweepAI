@@ -299,7 +299,7 @@ void MineSweeper::recursiveUncover(int x, int y)
     }
 }
 
-void MineSweeper::checkNeighborFlags(int j, int i)
+bool MineSweeper::checkNeighborFlags(int j, int i)
 {
     if (gameBoard[i][j]== 0)
         return;
@@ -339,12 +339,14 @@ void MineSweeper::checkNeighborFlags(int j, int i)
         recursiveUncover(j - 1, i + 1);
         recursiveUncover(j, i + 1);
         recursiveUncover(j + 1, i + 1);
+
+        return true;
     }
 
-
+    return false;
 }
 
-void MineSweeper::checkAllFlag(int j, int i){
+bool MineSweeper::checkAllFlag(int j, int i){
     if (gameBoard[i][j]== 0)
         return;
 
@@ -400,7 +402,11 @@ void MineSweeper::checkAllFlag(int j, int i){
             if (j + 1 < size && userBoard[i + 1][j + 1] == COVERED_SPACE)
                 flagSpace(j + 1, i + 1);
         }
+
+        return true;
     }
+
+    return false;
 }
 
 void MineSweeper::checkClear()
@@ -464,15 +470,27 @@ void sleeep(){
 void MineSweeper::aiLoop(){
     generateGame(1, 1);
     uncover(1, 1);
+
     while (state == ONGOING)
     {
+        bool noFlag = false;;
+
         for(int i = 0; i < userBoard.size(); i++){
             for(int j = 0; j < userBoard.size(); j++){
-                checkAllFlag(i, j);
-                checkNeighborFlags(i, j);
+                noFlag = checkAllFlag(i, j) || checkNeighborFlags(i, j);
                 //sleeep();
                 //cin.get();
             }
+        }
+
+        if (!noFlag)
+        {
+            // Patern Search
+        }
+
+        if (!noFlag)
+        {
+            // Random Guess
         }
         checkClear();
         print();
