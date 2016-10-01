@@ -1,6 +1,7 @@
 #ifndef MINESWEEPER_H
 #define MINESWEEPER_H
 
+
 // Values for userBoard;
 #define COVERED_SPACE 0
 #define UNCOVERED_SPACE 1
