@@ -311,7 +311,13 @@ void MineSweeper::uncover(int x, int y)
     if (gameBoard[y][x] == -1)
     {
         state = FAILURE;
-        userBoard[y][x] = UNCOVERED_SPACE;
+        for (unsigned int i = 0; i < userBoard.size(); i++)
+        {
+            for (unsigned int j = 0; j < userBoard.size(); j++)
+            {
+                userBoard[i][j] = UNCOVERED_SPACE;
+            }
+        }
     }
 
     else
