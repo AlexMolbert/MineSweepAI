@@ -194,7 +194,11 @@ void MineSweeper::gameLoop(){
     int x, y;
     cout << "Make your first move: ";
     cin >> x >> y;
+    x--;
+    y--;
     generateGame(x, y);
+
+    recursiveUncover(x, y);
     print();
 
     while(state == ONGOING){

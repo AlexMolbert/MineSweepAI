@@ -21,11 +21,8 @@ class MineSweeper
 {
     public:
         MineSweeper();
-        void changeSize(ui newSize);
-        void print();
-        void generateGame(ui x, ui y);
+        void gameLoop();
 
-        void makeMove();
 
     private:
         vector<vector<int> > gameBoard; // Underlying game board
@@ -33,6 +30,11 @@ class MineSweeper
         ui size;
         int state;
 
+        void changeSize(ui newSize);
+        void print();
+        void generateGame(int x, int y);
+
+        void makeMove();
         void checkClear();
         void flagSpace(int x, int y);
         void recursiveUncover(int x, int y);
