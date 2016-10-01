@@ -33,10 +33,10 @@ void MineSweeper::print()
         cout << i + 1 << " |";
         for(unsigned int j = 0; j <size; j++)
         {
-            if(userBoard[i][j] == 1){
-                cout << " *   ";
+            if(userBoard[i][j] == COVERED_SPACE){
+                cout << " ?   ";
             }
-            else if(userBoard[i][j] == 2)
+            else if(userBoard[i][j] == FLAGGED_SPACE)
             {
                 cout << " F   ";
             }
@@ -44,7 +44,7 @@ void MineSweeper::print()
             {
                 if(gameBoard[i][j] == 0)
                 {
-                    cout << " ?   ";
+                    cout << " *   ";
                 }
                 else
                     cout << " " << gameBoard[i][j] << "   ";
