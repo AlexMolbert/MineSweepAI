@@ -166,9 +166,9 @@ void MineSweeper::makeMove()
         return;
     }
 
-    if (userBoard[y][x] == UNCOVERED_SPACE)
+    if (userBoard[y][x] == UNCOVERED_SPACE || userBoard[y][x] == FLAGGED_SPACE)
     {
-        cout << "Space already uncovered!" << endl;
+        cout << "Invalid Space!" << endl;
         makeMove();
         return;
     }
