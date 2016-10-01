@@ -351,26 +351,26 @@ void MineSweeper::checkAllFlag(int j, int i){
     int count = 0;
     if (i - 1 >= 0)
     {
-        if ((j - 1) >= 0 && userBoard[i - 1][j - 1] == FLAGGED_SPACE || (j - 1) >= 0 && userBoard[i - 1][j - 1] == COVERED_SPACE)
+        if ((j - 1) >= 0 && (userBoard[i - 1][j - 1] == FLAGGED_SPACE || userBoard[i - 1][j - 1] == COVERED_SPACE))
             count++;
         if (userBoard[i - 1][j] == FLAGGED_SPACE || userBoard[i - 1][j] == COVERED_SPACE)
             count++;
-        if (j + 1 < size && userBoard[i - 1][j + 1] == FLAGGED_SPACE || j + 1 < size && userBoard[i - 1][j + 1] == COVERED_SPACE)
+        if (j + 1 < size && (userBoard[i - 1][j + 1] == FLAGGED_SPACE || userBoard[i - 1][j + 1] == COVERED_SPACE))
             count++;
     }
 
-    if (j - 1 >= 0 && userBoard[i][j - 1] == FLAGGED_SPACE || j - 1 >= 0 && userBoard[i][j - 1] == COVERED_SPACE)
+    if (j - 1 >= 0 && (userBoard[i][j - 1] == FLAGGED_SPACE || userBoard[i][j - 1] == COVERED_SPACE))
             count++;
-    if (j + 1 < size && userBoard[i][j + 1] == FLAGGED_SPACE || j + 1 < size && userBoard[i][j + 1] == COVERED_SPACE)
+    if (j + 1 < size && (userBoard[i][j + 1] == FLAGGED_SPACE || userBoard[i][j + 1] == COVERED_SPACE))
             count++;
 
     if (i + 1 < size)
     {
-        if (j - 1 >= 0 && userBoard[i + 1][j - 1] == FLAGGED_SPACE || j - 1 >= 0 && userBoard[i + 1][j - 1] == COVERED_SPACE)
+        if (j - 1 >= 0 && (userBoard[i + 1][j - 1] == FLAGGED_SPACE || userBoard[i + 1][j - 1] == COVERED_SPACE))
             count++;
         if (userBoard[i + 1][j] == FLAGGED_SPACE || userBoard[i + 1][j] == COVERED_SPACE)
             count++;
-        if (j + 1 < size && userBoard[i + 1][j + 1] == FLAGGED_SPACE || j + 1 < size && userBoard[i + 1][j + 1] == COVERED_SPACE)
+        if (j + 1 < size && (userBoard[i + 1][j + 1] == FLAGGED_SPACE || userBoard[i + 1][j + 1] == COVERED_SPACE))
             count++;
     }
 
@@ -378,25 +378,27 @@ void MineSweeper::checkAllFlag(int j, int i){
     {
         if (i - 1 >= 0)
         {
-             if ((j - 1) >= 0 && userBoard[i - 1][j - 1] == COVERED_SPACE)
+            if ((j - 1) >= 0 && userBoard[i - 1][j - 1] == COVERED_SPACE)
                 flagSpace(i - 1, j - 1);
             if (userBoard[i - 1][j] == COVERED_SPACE)
                 flagSpace(i - 1, j);
             if (j + 1 < size && userBoard[i - 1][j + 1] == COVERED_SPACE)
                 flagSpace(i - 1, j + 1);
         }
+
         if (j - 1 >= 0 && userBoard[i][j - 1] == COVERED_SPACE)
             flagSpace(i, j - 1);
         if (j + 1 < size && userBoard[i][j + 1] == COVERED_SPACE)
             flagSpace(i, j + 1);
+
         if (i + 1 < size)
         {
-            if (j - 1 >= 0 && userBoard[i + 1][j - 1] == FLAGGED_SPACE || j - 1 >= 0 && userBoard[i + 1][j - 1] == COVERED_SPACE)
-            flagSpace(i + 1, j - 1);
-            if (userBoard[i + 1][j] == FLAGGED_SPACE || userBoard[i + 1][j] == COVERED_SPACE)
-            flagSpace(i + 1, j);
+            if (j - 1 >= 0 && userBoard[i + 1][j - 1] == COVERED_SPACE)
+                flagSpace(i + 1, j - 1);
+            if (userBoard[i + 1][j] == COVERED_SPACE)
+                flagSpace(i + 1, j);
             if (j + 1 < size && userBoard[i + 1][j + 1] == COVERED_SPACE)
-            flagSpace(i + 1, j + 1);
+                flagSpace(i + 1, j + 1);
         }
     }
 }
@@ -455,6 +457,7 @@ bool MineSweeper::checkAI(){
         }
     }
 }
+
 void sleeep(){
     for(int i = 0; i < 800000000; i++){}
 }
