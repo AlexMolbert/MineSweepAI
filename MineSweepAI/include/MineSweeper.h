@@ -30,6 +30,7 @@ class MineSweeper
         int size, mine;
         int state;
 
+        bool aiLoop();
         void getDifficulty();
         void changeSize(int newSize);
         void print();
