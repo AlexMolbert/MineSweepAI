@@ -107,12 +107,9 @@ void MineSweeper::generateGame(int x, int y)
             gx = generator() % size;
             gy = generator() % size;
 
-            if (highx >= gx && gx >= lowx)
+            if (highx >= gx && gx >= lowx && highy >= gy && gy >= lowy)
             {
-                if (highy >= gy && gy >= lowy)
-                {
-                       // Skip
-                }
+
             }
 
             else if (gameBoard[gy][gx] != -1)
