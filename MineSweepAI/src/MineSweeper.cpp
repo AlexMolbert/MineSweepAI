@@ -464,18 +464,20 @@ void sleeep(){
 void MineSweeper::aiLoop(){
     generateGame(1, 1);
     uncover(1, 1);
-    bool c = true;
-    while (true)
+    while (state == ONGOING)
     {
         for(int i = 0; i < userBoard.size(); i++){
             for(int j = 0; j < userBoard.size(); j++){
                 checkAllFlag(i, j);
                 checkNeighborFlags(i, j);
                 print();
+                checkClear();
                 //sleeep();
-                cin.get();
+                //cin.get();
             }
         }
     }
+
+    cout << "You think your board can trouble my C O M P L E X A L G O R I T H M S ?" << endl;
 }
 
