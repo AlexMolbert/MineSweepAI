@@ -272,7 +272,7 @@ void MineSweeper::recursiveUncover(int x, int y)
     if (y < 0 || y  >= size)
         return;
 
-    if (userBoard[y][x] == UNCOVERED_SPACE)
+    if (userBoard[y][x] == UNCOVERED_SPACE || userBoard[y][x] == FLAGGED_SPACE)
         return;
 
     userBoard[y][x] = UNCOVERED_SPACE;
@@ -288,6 +288,48 @@ void MineSweeper::recursiveUncover(int x, int y)
     recursiveUncover(x - 1, y + 1);
     recursiveUncover(x, y + 1);
     recursiveUncover(x + 1, y + 1);
+}
+
+void MineSweeper::checkNeighborFlags(int j, int i)
+{
+    int count = 0;
+    if (i - 1 >= 0)
+    {
+        if ((j - 1) >= 0 && userBoard[i - 1][j - 1] == FLAGGED_SPACE)
+            count++;
+        if (userBoard[i - 1][j] == FLAGGED_SPACE)
+            count++;
+        if (j + 1 < size && userBoard[i - 1][j + 1] == FLAGGED_SPACE)
+            count++;
+    }
+
+    if (j - 1 >= 0 && userBoard[i][j - 1] == FLAGGED_SPACE)
+            count++;
+    if (j + 1 < size && userBoard[i][j + 1] == FLAGGED_SPACE)
+            count++;
+
+    if (i + 1 < size)
+    {
+        if (j - 1 >= 0 && userBoard[i + 1][j - 1] == FLAGGED_SPACE)
+            count++;
+        if (userBoard[i + 1][j] == FLAGGED_SPACE)
+            count++;
+        if (j + 1 < size && userBoard[i + 1][j + 1] == FLAGGED_SPACE)
+            count++;
+    }
+
+    if (gameBoard[i][j] == count)
+    {
+        recursiveUncover(i - 1, j - 1);
+        recursiveUncover(i - 1, j);
+        recursiveUncover(i - 1, j + 1);
+        recursiveUncover(i, j - 1);
+        recursiveUncover(i, j + 1);
+        recursiveUncover(i + 1, j - 1);
+        recursiveUncover(i + 1, j);
+        recursiveUncover(i + 1, j + 1);
+    }
+
 }
 
 void MineSweeper::checkClear()

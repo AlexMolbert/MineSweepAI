@@ -30,7 +30,6 @@ class MineSweeper
         int size, mine;
         int state;
 
-        bool aiLoop();
         void getDifficulty();
         void changeSize(int newSize);
         void print();
@@ -40,6 +39,7 @@ class MineSweeper
         void checkClear();
         void flagSpace(int x, int y);
         void recursiveUncover(int x, int y);
+        void checkNeighborFlags(int j, int i);
 };
 
 #endif // MINESWEEPER_H
