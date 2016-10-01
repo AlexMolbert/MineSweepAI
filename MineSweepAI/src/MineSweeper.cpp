@@ -186,7 +186,7 @@ void MineSweeper::makeMove()
 
 void MineSweeper::flagSpace(int x, int y)
 {
-
+    userBoard[y][x] = FLAGGED_SPACE;
 }
 
 void MineSweeper::recursiveUncover(int x, int y)
