@@ -93,6 +93,11 @@ void MineSweeper::generateGame(int x, int y)
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     mt19937 generator (seed);
 
+    int lowx = max(0, x - 2);
+    int lowy = max(0, y - 2);
+    int highx = min(size - 1, x + 2);
+    int highy = min(size - 1, y + 2);
+
     for (ui i = 0; i < 40; i++)
     {
         bool validGen = false;
@@ -102,13 +107,18 @@ void MineSweeper::generateGame(int x, int y)
             gx = generator() % size;
             gy = generator() % size;
 
-            if (x != gx && y != gy)
+            if (highx >= gx && gx >= lowx)
             {
-                if (gameBoard[gx][gy] != -1)
+                if (highy >= gy && gy >= lowy)
                 {
-                    gameBoard[gx][gy] = -1;
-                    validGen = true;
+                       // Skip
                 }
+            }
+
+            else if (gameBoard[gy][gx] != -1)
+            {
+                    gameBoard[gy][gx] = -1;
+                    validGen = true;
             }
         }
     }
