@@ -222,7 +222,7 @@ void MineSweeper::flagSpace(int x, int y)
 void MineSweeper::gameLoop(){
     int x, y;
     getDifficulty();
-    if(!checkAI()){
+    if(checkAI()){
         aiLoop();
         return;
     }
@@ -272,8 +272,6 @@ void MineSweeper::getDifficulty() {
         getDifficulty();
         return;
     }
-
-
 }
 
 void MineSweeper::recursiveUncover(int x, int y)
@@ -341,6 +339,61 @@ void MineSweeper::checkNeighborFlags(int j, int i)
         recursiveUncover(i + 1, j + 1);
     }
 
+
+}
+
+void MineSweeper::checkAllFlag(int j, int i){
+    int count = 0;
+    if (i - 1 >= 0)
+    {
+        if ((j - 1) >= 0 && userBoard[i - 1][j - 1] == FLAGGED_SPACE || (j - 1) >= 0 && userBoard[i - 1][j - 1] == UNCOVERED_SPACE)
+            count++;
+        if (userBoard[i - 1][j] == FLAGGED_SPACE || userBoard[i - 1][j] == UNCOVERED_SPACE)
+            count++;
+        if (j + 1 < size && userBoard[i - 1][j + 1] == FLAGGED_SPACE || j + 1 < size && userBoard[i - 1][j + 1] == UNCOVERED_SPACE)
+            count++;
+    }
+
+    if (j - 1 >= 0 && userBoard[i][j - 1] == FLAGGED_SPACE || j - 1 >= 0 && userBoard[i][j - 1] == UNCOVERED_SPACE)
+            count++;
+    if (j + 1 < size && userBoard[i][j + 1] == FLAGGED_SPACE || j + 1 < size && userBoard[i][j + 1] == UNCOVERED_SPACE)
+            count++;
+
+    if (i + 1 < size)
+    {
+        if (j - 1 >= 0 && userBoard[i + 1][j - 1] == FLAGGED_SPACE || j - 1 >= 0 && userBoard[i + 1][j - 1] == UNCOVERED_SPACE)
+            count++;
+        if (userBoard[i + 1][j] == FLAGGED_SPACE || userBoard[i + 1][j] == UNCOVERED_SPACE)
+            count++;
+        if (j + 1 < size && userBoard[i + 1][j + 1] == FLAGGED_SPACE || j + 1 < size && userBoard[i + 1][j + 1] == UNCOVERED_SPACE)
+            count++;
+    }
+
+    if (gameBoard[i][j] == count)
+    {
+        if (i - 1 >= 0)
+        {
+             if ((j - 1) >= 0 && userBoard[i - 1][j - 1] == UNCOVERED_SPACE)
+                flagSpace(i - 1, j - 1);
+            if (userBoard[i - 1][j] == UNCOVERED_SPACE)
+                flagSpace(i - 1, j);
+            if (j + 1 < size && userBoard[i - 1][j + 1] == UNCOVERED_SPACE)
+                flagSpace(i - 1, j + 1);
+        }
+        if (j - 1 >= 0 && userBoard[i][j - 1] == UNCOVERED_SPACE)
+            flagSpace(i, j - 1);
+        if (j + 1 < size && userBoard[i][j + 1] == UNCOVERED_SPACE)
+            flagSpace(i, j + 1);
+        if (i + 1 < size)
+        {
+            if (j - 1 >= 0 && userBoard[i + 1][j - 1] == FLAGGED_SPACE || j - 1 >= 0 && userBoard[i + 1][j - 1] == UNCOVERED_SPACE)
+            flagSpace(i + 1, j - 1);
+            if (userBoard[i + 1][j] == FLAGGED_SPACE || userBoard[i + 1][j] == UNCOVERED_SPACE)
+            flagSpace(i + 1, j);
+            if (j + 1 < size && userBoard[i + 1][j + 1] == UNCOVERED_SPACE)
+            flagSpace(i + 1, j + 1);
+        }
+    }
 }
 
 void MineSweeper::checkClear()
@@ -379,6 +432,8 @@ void MineSweeper::uncover(int x, int y)
     }
 }
 
+
+
 bool MineSweeper::checkAI(){
     string choice;
     cout << "Do you need help stupid human? (Get the help of a bot) Yes/No? ";
@@ -397,4 +452,10 @@ bool MineSweeper::checkAI(){
 }
 
 void MineSweeper::aiLoop(){
+    for(int i = 0; i < userBoard.size(); i++)
+        for(int j = 0; j < userBoard.size(); j++){
+            checkNeighborFlags(j, i);
+            checkAllFlag(j, i);
+            print();
+        }
 }
