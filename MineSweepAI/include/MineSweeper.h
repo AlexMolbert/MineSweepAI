@@ -27,7 +27,7 @@ class MineSweeper
         vector<vector<int> > gameBoard; // Underlying game board
         vector<vector<int> > userBoard; // The board that the user interacts with
         ui size;
-        void recursiveUncover();
+        void recursiveUncover(int x, int y);
 
 
 };

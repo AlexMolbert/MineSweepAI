@@ -153,7 +153,27 @@ bool MineSweeper::flagSpace()
 
 }
 
-void MineSweeper::recursiveUncover()
+void MineSweeper::recursiveUncover(int x, int y)
 {
+    if (x < 0 || x >= size)
+        return;
+    if (y < 0 || y  >= size)
+        return;
 
+    if (userBoard[y][x] == UNCOVERED_SPACE)
+        return;
+
+    userBoard[y][x] = UNCOVERED_SPACE;
+
+    if (gameBoard[y][x] != 0)
+        return;
+
+    recursiveUncover(x - 1, y - 1);
+    recursiveUncover(x, y - 1);
+    recursiveUncover(x + 1, y - 1);
+    recursiveUncover(x - 1, y);
+    recursiveUncover(x + 1, y);
+    recursiveUncover(x - 1, y + 1);
+    recursiveUncover(x, y + 1);
+    recursiveUncover(x + 1, y + 1);
 }
