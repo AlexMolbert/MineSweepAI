@@ -143,12 +143,48 @@ void MineSweeper::generateGame(ui x, ui y)
     }
 }
 
-bool MineSweeper::uncoverSpace()
+void MineSweeper::makeMove()
 {
+    char choice;
+    int x, y;
 
+    cin >> choice >> x >> y;
+    x--;
+    y--;
+
+    if (choice != 'U' && choice != 'u' && choice != 'F' && choice !='f')
+    {
+        cout << "Invalid option! Please enter 'u' to uncover or 'f' to flag" << endl;
+        makeMove();
+        return;
+    }
+
+    if (x < 0 || x >= size || y < 0 || y >= size)
+    {
+        cout << "Invalid coordinate!" << endl;
+        makeMove();
+        return;
+    }
+
+    if (userBoard[y][x] == UNCOVERED_SPACE)
+    {
+        cout << "Space already uncovered!" << endl;
+        makeMove();
+        return;
+    }
+
+    if (choice == 'U' || choice == 'u')
+    {
+        recursiveUncover(x, y);
+    }
+
+    else
+    {
+        flagSpace(x, y);
+    }
 }
 
-bool MineSweeper::flagSpace()
+void MineSweeper::flagSpace(int x, int y)
 {
 
 }

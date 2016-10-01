@@ -19,17 +19,17 @@ class MineSweeper
         MineSweeper();
         void changeSize(ui newSize);
         void print();
-        bool uncoverSpace();
-        bool flagSpace();
         void generateGame(ui x, ui y);
+
+        void makeMove();
 
     private:
         vector<vector<int> > gameBoard; // Underlying game board
         vector<vector<int> > userBoard; // The board that the user interacts with
         ui size;
+
+        void flagSpace(int x, int y);
         void recursiveUncover(int x, int y);
-
-
 };
 
 #endif // MINESWEEPER_H
