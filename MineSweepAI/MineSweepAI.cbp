@@ -33,6 +33,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="COMPLEX.txt" />
 		<Unit filename="include/MineSweeper.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/MineSweeper.cpp" />
