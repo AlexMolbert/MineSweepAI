@@ -29,6 +29,7 @@ class MineSweeper
         vector<vector<int> > userBoard; // The board that the user interacts with
         int size, mine;
         int state;
+        bool hasMadeMove;
 
         void getDifficulty();
         void changeSize(int newSize);
@@ -41,6 +42,7 @@ class MineSweeper
         void recursiveUncover(int x, int y);
         bool checkNeighborFlags(int j, int i);
         bool checkAllFlag(int x, int y);
+        void randomGuess();
 
         bool checkAI();
         void aiLoop();

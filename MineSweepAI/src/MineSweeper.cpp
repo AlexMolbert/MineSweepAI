@@ -212,6 +212,7 @@ void MineSweeper::makeMove()
 
 void MineSweeper::flagSpace(int x, int y)
 {
+    hasMadeMove = true;
     if (userBoard[y][x] == COVERED_SPACE)
         userBoard[y][x] = FLAGGED_SPACE;
     else
@@ -283,6 +284,7 @@ void MineSweeper::recursiveUncover(int x, int y)
 
     if (userBoard[y][x] == COVERED_SPACE)
     {
+        hasMadeMove = true;
         userBoard[y][x] = UNCOVERED_SPACE;
 
         if (gameBoard[y][x] != 0)
@@ -302,7 +304,7 @@ void MineSweeper::recursiveUncover(int x, int y)
 bool MineSweeper::checkNeighborFlags(int j, int i)
 {
     if (gameBoard[i][j]== 0)
-        return;
+        return false;
     int count = 0;
     if (i - 1 >= 0)
     {
@@ -348,7 +350,7 @@ bool MineSweeper::checkNeighborFlags(int j, int i)
 
 bool MineSweeper::checkAllFlag(int j, int i){
     if (gameBoard[i][j]== 0)
-        return;
+        return false;
 
     int count = 0;
     if (i - 1 >= 0)
@@ -430,13 +432,15 @@ void MineSweeper::uncover(int x, int y)
     if (gameBoard[y][x] == -1)
     {
         state = FAILURE;
+        userBoard[y][x] = UNCOVERED_SPACE;
+        /*
         for (unsigned int i = 0; i < userBoard.size(); i++)
         {
             for (unsigned int j = 0; j < userBoard.size(); j++)
             {
                 userBoard[i][j] = UNCOVERED_SPACE;
             }
-        }
+        }*/
     }
 
     else
@@ -473,29 +477,52 @@ void MineSweeper::aiLoop(){
 
     while (state == ONGOING)
     {
-        bool noFlag = false;;
-
-        for(int i = 0; i < userBoard.size(); i++){
-            for(int j = 0; j < userBoard.size(); j++){
-                noFlag = checkAllFlag(i, j) || checkNeighborFlags(i, j);
+        hasMadeMove = false;
+        for(int i = 0; i < userBoard.size() && state == ONGOING; i++){
+            for(int j = 0; j < userBoard.size() && state == ONGOING; j++){
+                checkAllFlag(i, j);
+                checkNeighborFlags(i, j);
+                checkClear();
                 //sleeep();
                 //cin.get();
             }
         }
 
-        if (!noFlag)
+        if (!hasMadeMove)
         {
             // Patern Search
         }
 
-        if (!noFlag)
+        if (!hasMadeMove)
         {
-            // Random Guess
+            randomGuess();
         }
-        checkClear();
+
         print();
     }
-
-    cout << "You think your board can trouble my C O M P L E X A L G O R I T H M S ?" << endl;
+    if (state == SUCCESS)
+        cout << "You think your board can trouble my C O M P L E X A L G O R I T H M S ?" << endl;
+    else
+        cout << "NOOOOOOOO";
 }
 
+void MineSweeper::randomGuess()
+{
+    // You feeling lucky kiddo?
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    mt19937 generator (seed);
+
+    // Loop until we guess a random tile
+    while (true)
+    {
+        int gx, gy;
+        gx = generator() % size;
+        gy = generator() % size;
+
+        if (userBoard[gy][gx] == COVERED_SPACE)
+        {
+            uncover(gx, gy);
+            return;
+        }
+    }
+}
